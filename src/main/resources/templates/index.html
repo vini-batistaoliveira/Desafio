@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+<title>Listagem Funcionários</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+		$.ajax({
+			method : "GET",
+			url : "http://localhost:8080/funcionarios",
+			dataType : "JSON"
+		}).done(function(data) {
+			console.log(data);
+
+			for (var i = 0; i < data.length; i++) {
+				$('#id' + i).html(data[i].id);
+				$('#nome' + i).html(data[i].nome);
+				$('#cargo' + i).html(data[i].cargo);
+				$('#salario' + i).html(data[i].salario);
+				for (var z = 0; z < data[i].skill.length; z++) {
+					$('#skill' + i).html(data[i].skill[z].nome);
+				}
+			}
+
+		}).fail(function(data) {
+			console.log(data);
+		});
+	});
+
+	function obterMarcados() {
+		
+		var listaMarcados = document.getElementsByName("skill");
+		for (i = 0; i < listaMarcados.length; i++) {
+			var item = listaMarcados[i];
+			if (item.type == "checkbox" && item.checked) {
+				if(item.value == skill6){
+					console.log("teste");
+				}
+				alert(item.value);
+			}
+		}
+	}
+</script>
+</head>
+
+
+<body>
+	<h1>Funcionarios</h1>
+	<table id="myTable">
+
+		<!-- Header Table -->
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nome</th>
+				<th>Cargo</th>
+				<th>Salario</th>
+				<th>Skill</th>
+			</tr>
+		</thead>
+		<!-- Footer Table -->
+
+		<tbody>
+
+			<tr>
+				<td id="id0"></td>
+				<td id="nome0"></td>
+				<td id="cargo0"></td>
+				<td id="salario0"></td>
+				<td id="skill0"></td>
+			</tr>
+			<tr>
+				<td id="id1"></td>
+				<td id="nome1"></td>
+				<td id="cargo1"></td>
+				<td id="salario1"></td>
+				<td id="skill1"></td>
+			</tr>
+			<tr>
+				<td id="id2"></td>
+				<td id="nome2"></td>
+				<td id="cargo2"></td>
+				<td id="salario2"></td>
+				<td id="skill2"></td>
+			</tr>
+			<tr>
+				<td id="id3"></td>
+				<td id="nome3"></td>
+				<td id="cargo3"></td>
+				<td id="salario3"></td>
+				<td id="skill3"></td>
+			</tr>
+			<tr>
+				<td id="id4"></td>
+				<td id="nome4"></td>
+				<td id="cargo4"></td>
+				<td id="salario4"></td>
+				<td id="skill4"></td>
+			</tr>
+			<tr>
+				<td id="id5"></td>
+				<td id="nome5"></td>
+				<td id="cargo5"></td>
+				<td id="salario5"></td>
+				<td id="skill5"></td>
+			</tr>
+			<tr>
+				<td id="id6"></td>
+				<td id="nome6"></td>
+				<td id="cargo6"></td>
+				<td id="salario6"></td>
+				<td id="skill6"></td>
+			</tr>
+			<tr>
+				<td id="id7"></td>
+				<td id="nome7"></td>
+				<td id="cargo7"></td>
+				<td id="salario7"></td>
+				<td id="skill7"></td>
+			</tr>
+			<tr>
+				<td id="id8"></td>
+				<td id="nome8"></td>
+				<td id="cargo8"></td>
+				<td id="salario8"></td>
+				<td id="skill8"></td>
+			</tr>
+		</tbody>
+
+	</table>
+
+	<br>
+
+	<h1>Filtrar Por Skill</h1>
+
+
+	<form>
+		<input type="checkbox" name="skill" value="Java"> Java <br>
+		<input type="checkbox" name="skill" value="Oracle"> Oracle <br>
+		<input type="checkbox" name="skill" value="PHP"> PHP <br>
+		<input type="checkbox" name="skill" value="React"> React <br>
+		<input type="checkbox" name="skill" value="MySQL"> MySQL <br>
+
+		<button onclick="obterMarcados()">Filtrar</button>
+	</form>
+</body>
+</html>
