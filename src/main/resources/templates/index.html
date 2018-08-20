@@ -12,6 +12,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script>
+	//Jquery pega valor JSON e joga valores nos input
 	$(document).ready(function() {
 		$.ajax({
 			method : "GET",
@@ -25,131 +26,194 @@
 				$('#nome' + i).html(data[i].nome);
 				$('#cargo' + i).html(data[i].cargo);
 				$('#salario' + i).html(data[i].salario);
+				var skillZ = '';
 				for (var z = 0; z < data[i].skill.length; z++) {
-					$('#skill' + i).html(data[i].skill[z].nome);
+					if (z === data[i].skill.length - 1) {
+						skillZ += data[i].skill[z].nome;
+					} else {
+						skillZ += data[i].skill[z].nome + ' - ';
+					}
 				}
+				//alert(skillZ);
+				$('#skill' + i).html(skillZ);
 			}
 
 		}).fail(function(data) {
 			console.log(data);
 		});
-	});
 
-	function obterMarcados() {
-		
-		var listaMarcados = document.getElementsByName("skill");
-		for (i = 0; i < listaMarcados.length; i++) {
-			var item = listaMarcados[i];
-			if (item.type == "checkbox" && item.checked) {
-				if(item.value == skill6){
-					console.log("teste");
+		$('test').click(function() {
+			console.log(this.value)
+		});
+	});
+	
+
+	// 	//Pega valores selecionados no checkbox de filtro e verifica se funcionario possue os skills selecionados
+	// 	function filtrarSkill() {
+
+	// 	}
+	$(document).ready(function() {
+		$("#filtro").click(function() {
+			$.ajax({
+				method : "GET",
+				url : "http://localhost:8080/funcionarios",
+				dataType : "JSON"
+			}).then(function(data) {
+				var funcionario = [];
+				////Pega valores input
+				var skill = document.forms[0];
+				var txt = [];
+				var i;
+				for (i = 0; i < skill.length; i++) {
+					if (skill[i].checked) {
+						txt.push(skill[i].value);
+					}
 				}
-				alert(item.value);
-			}
-		}
-	}
+				
+				for (var i = 0; i < data.length; i++) {			
+					
+					var skillFunc = [];
+					var skillZ = '';
+					
+										
+					for (var z = 0; z < data[i].skill.length; z++) {
+						if (z === data[i].skill.length - 1) {
+							//skillFunc[0] = data[i].nome;
+							skillFunc.push(data[i].skill[z].nome);
+							////////////////////////////////////////
+								//Compara os arrays de skill checkbox com skill dos funcionarios
+							function arraysEqual(skillFunc,txt) {
+							    if( JSON.stringify(skillFunc)==JSON.stringify(txt)){
+							    		funcionario.push(data[i].nome);
+							    }
+							}
+							
+							
+							
+						
+					} else {
+						skillFunc.push(data[i].skill[z].nome);
+					}
+					
+				} 
+
+				arraysEqual(skillFunc,txt);
+				}
+				alert("Os Funcionários com os skill's: " + txt + " são: " + funcionario);
+			});
+		});
+	});
 </script>
+
 </head>
 
 
 <body>
 	<h1>Funcionarios</h1>
-	<table id="myTable">
+	<div class="table-responsive">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nome</th>
+					<th>Cargo</th>
+					<th>Salario</th>
+					<th>Skill</th>
+				</tr>
+			</thead>
+			<!-- Footer Table -->
 
-		<!-- Header Table -->
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Nome</th>
-				<th>Cargo</th>
-				<th>Salario</th>
-				<th>Skill</th>
-			</tr>
-		</thead>
-		<!-- Footer Table -->
+			<tbody>
 
-		<tbody>
-
-			<tr>
-				<td id="id0"></td>
-				<td id="nome0"></td>
-				<td id="cargo0"></td>
-				<td id="salario0"></td>
-				<td id="skill0"></td>
-			</tr>
-			<tr>
-				<td id="id1"></td>
-				<td id="nome1"></td>
-				<td id="cargo1"></td>
-				<td id="salario1"></td>
-				<td id="skill1"></td>
-			</tr>
-			<tr>
-				<td id="id2"></td>
-				<td id="nome2"></td>
-				<td id="cargo2"></td>
-				<td id="salario2"></td>
-				<td id="skill2"></td>
-			</tr>
-			<tr>
-				<td id="id3"></td>
-				<td id="nome3"></td>
-				<td id="cargo3"></td>
-				<td id="salario3"></td>
-				<td id="skill3"></td>
-			</tr>
-			<tr>
-				<td id="id4"></td>
-				<td id="nome4"></td>
-				<td id="cargo4"></td>
-				<td id="salario4"></td>
-				<td id="skill4"></td>
-			</tr>
-			<tr>
-				<td id="id5"></td>
-				<td id="nome5"></td>
-				<td id="cargo5"></td>
-				<td id="salario5"></td>
-				<td id="skill5"></td>
-			</tr>
-			<tr>
-				<td id="id6"></td>
-				<td id="nome6"></td>
-				<td id="cargo6"></td>
-				<td id="salario6"></td>
-				<td id="skill6"></td>
-			</tr>
-			<tr>
-				<td id="id7"></td>
-				<td id="nome7"></td>
-				<td id="cargo7"></td>
-				<td id="salario7"></td>
-				<td id="skill7"></td>
-			</tr>
-			<tr>
-				<td id="id8"></td>
-				<td id="nome8"></td>
-				<td id="cargo8"></td>
-				<td id="salario8"></td>
-				<td id="skill8"></td>
-			</tr>
-		</tbody>
-
-	</table>
+				<tr>
+					<td id="id0"></td>
+					<td id="nome0"></td>
+					<td id="cargo0"></td>
+					<td id="salario0"></td>
+					<td id="skill0"></td>
+				</tr>
+				<tr>
+					<td id="id1"></td>
+					<td id="nome1"></td>
+					<td id="cargo1"></td>
+					<td id="salario1"></td>
+					<td id="skill1"></td>
+				</tr>
+				<tr>
+					<td id="id2"></td>
+					<td id="nome2"></td>
+					<td id="cargo2"></td>
+					<td id="salario2"></td>
+					<td id="skill2"></td>
+				</tr>
+				<tr>
+					<td id="id3"></td>
+					<td id="nome3"></td>
+					<td id="cargo3"></td>
+					<td id="salario3"></td>
+					<td id="skill3"></td>
+				</tr>
+				<tr>
+					<td id="id4"></td>
+					<td id="nome4"></td>
+					<td id="cargo4"></td>
+					<td id="salario4"></td>
+					<td id="skill4"></td>
+				</tr>
+				<tr>
+					<td id="id5"></td>
+					<td id="nome5"></td>
+					<td id="cargo5"></td>
+					<td id="salario5"></td>
+					<td id="skill5"></td>
+				</tr>
+				<tr>
+					<td id="id6"></td>
+					<td id="nome6"></td>
+					<td id="cargo6"></td>
+					<td id="salario6"></td>
+					<td id="skill6"></td>
+				</tr>
+				<tr>
+					<td id="id7"></td>
+					<td id="nome7"></td>
+					<td id="cargo7"></td>
+					<td id="salario7"></td>
+					<td id="skill7"></td>
+				</tr>
+				<tr>
+					<td id="id8"></td>
+					<td id="nome8"></td>
+					<td id="cargo8"></td>
+					<td id="salario8"></td>
+					<td id="skill8"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- Header Table -->
 
 	<br>
 
 	<h1>Filtrar Por Skill</h1>
 
+	<div class="input-group">
+		<form id="checkSkill">
+			<input type="checkbox" name="skill" value="Java"> <label
+				class="custom-control-label">Java</label> <input type="checkbox"
+				name="skill" value="Oracle"> <label
+				class="custom-control-label">Oracle</label> <input type="checkbox"
+				name="skill" value="React"> <label
+				class="custom-control-label">React</label> <input type="checkbox"
+				name="skill" value="PHP"> <label
+				class="custom-control-label">PHP</label> <input type="checkbox"
+				name="skill" value="MySQL"> <label
+				class="custom-control-label">MySQL</label>
+		</form>
+		<br>
 
-	<form>
-		<input type="checkbox" name="skill" value="Java"> Java <br>
-		<input type="checkbox" name="skill" value="Oracle"> Oracle <br>
-		<input type="checkbox" name="skill" value="PHP"> PHP <br>
-		<input type="checkbox" name="skill" value="React"> React <br>
-		<input type="checkbox" name="skill" value="MySQL"> MySQL <br>
+		<button type="button" class="btn btn-primary" id="filtro">Filtrar</button>
+	</div>
 
-		<button onclick="obterMarcados()">Filtrar</button>
-	</form>
 </body>
 </html>
