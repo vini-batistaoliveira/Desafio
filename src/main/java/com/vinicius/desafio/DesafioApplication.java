@@ -12,6 +12,8 @@ import com.vinicius.desafio.model.Skill;
 import com.vinicius.desafio.repository.FuncionarioRepository;
 import com.vinicius.desafio.repository.SkillRepository;
 
+//Classe main do projeto, inicialização do projeto em spring boot, valores de insert a baixo
+
 @SpringBootApplication
 public class DesafioApplication implements CommandLineRunner {
 	
@@ -27,6 +29,8 @@ public class DesafioApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
+
+//Valores que foram introduzidos no banco H2 para testes locais
 		
 		Funcionario f1 = new Funcionario(null, "Joao", 1000.00, "Atendente");
 		Funcionario f2 = new Funcionario(null, "Maria", 11000.00, "Desenvolvedor");

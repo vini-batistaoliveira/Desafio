@@ -11,6 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+//Classe Model com os atributos que serão criados no banco de dados do funcionário
+//Banco H2 local foi utilizado
+//Os valores que foram colocados no banco para teste estão na classe DesafioApplication, classe main do SpringAplication
+
 @Entity
 public class Funcionario implements Serializable {
 	

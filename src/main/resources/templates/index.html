@@ -10,103 +10,10 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<script>
-	//Jquery pega valor JSON e joga valores nos input
-	$(document).ready(function() {
-		$.ajax({
-			method : "GET",
-			url : "http://localhost:8080/funcionarios",
-			dataType : "JSON"
-		}).done(function(data) {
-			console.log(data);
-
-			for (var i = 0; i < data.length; i++) {
-				$('#id' + i).html(data[i].id);
-				$('#nome' + i).html(data[i].nome);
-				$('#cargo' + i).html(data[i].cargo);
-				$('#salario' + i).html(data[i].salario);
-				var skillZ = '';
-				for (var z = 0; z < data[i].skill.length; z++) {
-					if (z === data[i].skill.length - 1) {
-						skillZ += data[i].skill[z].nome;
-					} else {
-						skillZ += data[i].skill[z].nome + ' - ';
-					}
-				}
-				//alert(skillZ);
-				$('#skill' + i).html(skillZ);
-			}
-
-		}).fail(function(data) {
-			console.log(data);
-		});
-
-		$('test').click(function() {
-			console.log(this.value)
-		});
-	});
 	
-
-	// 	//Pega valores selecionados no checkbox de filtro e verifica se funcionario possue os skills selecionados
-	// 	function filtrarSkill() {
-
-	// 	}
-	$(document).ready(function() {
-		$("#filtro").click(function() {
-			$.ajax({
-				method : "GET",
-				url : "http://localhost:8080/funcionarios",
-				dataType : "JSON"
-			}).then(function(data) {
-				var funcionario = [];
-				////Pega valores input
-				var skill = document.forms[0];
-				var txt = [];
-				var i;
-				for (i = 0; i < skill.length; i++) {
-					if (skill[i].checked) {
-						txt.push(skill[i].value);
-					}
-				}
-				
-				for (var i = 0; i < data.length; i++) {			
-					
-					var skillFunc = [];
-					var skillZ = '';
-					
-										
-					for (var z = 0; z < data[i].skill.length; z++) {
-						if (z === data[i].skill.length - 1) {
-							//skillFunc[0] = data[i].nome;
-							skillFunc.push(data[i].skill[z].nome);
-							////////////////////////////////////////
-								//Compara os arrays de skill checkbox com skill dos funcionarios
-							function arraysEqual(skillFunc,txt) {
-							    if( JSON.stringify(skillFunc)==JSON.stringify(txt)){
-							    		funcionario.push(data[i].nome);
-							    }
-							}
-							
-							
-							
-						
-					} else {
-						skillFunc.push(data[i].skill[z].nome);
-					}
-					
-				} 
-
-				arraysEqual(skillFunc,txt);
-				}
-				alert("Os Funcionários com os skill's: " + txt + " são: " + funcionario);
-			});
-		});
-	});
-</script>
+<script src="js/tratarJson.js"></script>
 
 </head>
-
 
 <body>
 	<h1>Funcionarios</h1>

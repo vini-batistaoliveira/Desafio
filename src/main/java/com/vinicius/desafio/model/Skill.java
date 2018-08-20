@@ -15,6 +15,10 @@ import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+//Classe Model com os atributos que serão criados no banco de dados de skill de funcionário
+//Banco H2 local foi utilizado
+//Os valores que foram colocados no banco para teste estão na classe DesafioApplication, classe main do SpringAplication
+
 @Entity
 public class Skill implements Serializable {
 	
